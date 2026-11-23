@@ -215,8 +215,8 @@ footer{border-top:1px solid var(--line);padding:28px 0 40px;color:var(--sub);fon
         <li>게임 그래픽 스튜디오 근무</li>
       </ul>
       <div class="btns">
-        <a class="btn" href="#info" data-goto>정보</a>
         <a class="btn" href="#portfolio" data-goto>포트폴리오</a>
+        <a class="btn" href="#process" data-goto>정보</a>
         <a class="btn fill" href="#apply" data-goto>신청</a>
         <a class="btn" href="#sale" data-goto>판매작</a>
       </div>
@@ -368,8 +368,8 @@ footer{border-top:1px solid var(--line);padding:28px 0 40px;color:var(--sub);fon
 <footer><div class="wrap">TONA Facial · 모든 이미지는 저작권이 있으며 무단 도용 및 복제를 금합니다.</div></footer>
 
 <nav class="remote" id="remote" aria-label="바로가기">
-  <a href="#info" data-goto data-sec="info">정보</a>
   <a href="#portfolio" data-goto data-sec="portfolio">포트폴리오</a>
+  <a href="#process" data-goto data-sec="process">정보</a>
   <a href="#apply" data-goto data-sec="apply" class="go">신청</a>
   <a href="#sale" data-goto data-sec="sale">판매작</a>
   <a href="#top" data-goto class="up" aria-label="맨 위로">↑</a>
@@ -535,7 +535,7 @@ document.addEventListener("click", e => {
    아트머그 안에서는 iframe 전체가 펼쳐져 있어서 position:fixed가 화면에 붙지 않아요.
    그래서 부모 페이지가 보내 주는 스크롤 위치로 "지금 보이는 화면의 오른쪽 아래"를 계산해서 붙여요. */
 const remote = $("#remote");
-const secs = ["info", "portfolio", "apply", "sale"].map(id => document.getElementById(id));
+const secs = ["portfolio", "process", "apply", "sale"].map(id => document.getElementById(id));
 let view = null; // { top, bottom } : 지금 화면에 보이는 문서 범위
 function placeRemote() {
   let top, bottom;
