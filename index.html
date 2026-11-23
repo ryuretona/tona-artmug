@@ -34,7 +34,7 @@ p{margin:0}
 
 /* hero */
 .hero{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:48px;align-items:end;padding:64px 0 72px}
-.brand{font:200 clamp(56px,9vw,112px)/.95 Inter,sans-serif;letter-spacing:-.03em;margin:0}
+.brand{white-space:pre-line;font:200 clamp(56px,9vw,112px)/.95 Inter,sans-serif;letter-spacing:-.03em;margin:0}
 .tag{font:300 17px Inter,sans-serif;color:var(--sub);margin:14px 0 28px}
 .intro{font-size:17px;margin-bottom:22px}
 .cred{list-style:none;padding:0;margin:0 0 30px;color:var(--sub);font-size:15px}
@@ -207,10 +207,10 @@ footer{border-top:1px solid var(--line);padding:28px 0 40px;color:var(--sub);fon
   <!-- 소개 -->
   <section class="hero" id="top">
     <div>
-      <h1 class="brand">TONA<br>Facial</h1>
-      <p class="tag">Original / Facial / Edit</p>
-      <p class="intro">원화 기반 오리지널 헤드부터 BOOTH 아바타 성형, ARKit 페이셜까지 작업합니다.</p>
-      <ul class="cred">
+      <h1 class="brand" id="h-title">TONA<br>Facial</h1>
+      <p class="tag" id="h-sub">Original / Facial / Edit</p>
+      <p class="intro" id="h-intro">원화 기반 오리지널 헤드부터 BOOTH 아바타 성형, ARKit 페이셜까지 작업합니다.</p>
+      <ul class="cred" id="h-cred">
         <li>게임학과 4년제 졸업</li>
         <li>게임 그래픽 스튜디오 근무</li>
       </ul>
@@ -222,8 +222,8 @@ footer{border-top:1px solid var(--line);padding:28px 0 40px;color:var(--sub);fon
       </div>
     </div>
     <figure style="margin:0">
-      <div class="heroimg"><button class="shot" type="button" data-src="1aOx-KhWBecGm7ouccwozY0Nk8FqG98u_" data-cap="일러스트 기반 작업" style="aspect-ratio:auto;height:100%;border-radius:0"><img src="https://lh3.googleusercontent.com/d/1aOx-KhWBecGm7ouccwozY0Nk8FqG98u_" alt="원화와 완성된 3D 얼굴 비교"></button></div>
-      <figcaption class="cap">일러스트 기반 작업 · 일러스트 / 블렌더 (사용 모델: 시오)</figcaption>
+      <div class="heroimg"><button class="shot" id="h-shot" type="button" data-src="1aOx-KhWBecGm7ouccwozY0Nk8FqG98u_" data-cap="일러스트 기반 작업" style="aspect-ratio:auto;height:100%;border-radius:0"><img id="h-img" src="https://lh3.googleusercontent.com/d/1aOx-KhWBecGm7ouccwozY0Nk8FqG98u_" alt="원화와 완성된 3D 얼굴 비교"></button></div>
+      <figcaption class="cap" id="h-cap">일러스트 기반 작업 · 일러스트 / 블렌더 (사용 모델: 시오)</figcaption>
     </figure>
   </section>
 
@@ -642,7 +642,18 @@ async function tab(name) {
 async function loadSheet() {
   if (!SHEET_ID) return;
   const get = n => tab(n).catch(err => { console.warn("[sheet]", err); return null; });
-  const [nt, ad, av, sl, cl, ...pf] = await Promise.all(["notice", "addons", "avatars", "sales", "collab", ...PORTFOLIO.map(c => c.tab)].map(get));
+  const [hd, nt, ad, av, sl, cl, ...pf] = await Promise.all(["header", "notice", "addons", "avatars", "sales", "collab", ...PORTFOLIO.map(c => c.tab)].map(get));
+  /* 헤더: key / value 형식. career는 여러 줄 가능 */
+  if (hd) {
+    const v = k => (hd.find(o => o.key === k) || {}).value;
+    if (v("title")) $("#h-title").textContent = v("title");
+    if (v("subtitle")) $("#h-sub").textContent = v("subtitle");
+    if (v("intro")) $("#h-intro").textContent = v("intro");
+    const cr = hd.filter(o => o.key === "career" && o.value).map(o => `<li>${esc(o.value)}</li>`);
+    if (cr.length) $("#h-cred").innerHTML = cr.join("");
+    if (v("image")) { $("#h-shot").dataset.src = v("image"); $("#h-img").src = src(v("image")); }
+    if (v("caption")) { $("#h-cap").textContent = v("caption"); $("#h-shot").dataset.cap = v("caption"); $("#h-img").alt = v("caption"); }
+  }
   if (nt) NOTICES = nt.map(o => o.text).filter(Boolean);
   /* 포폴 탭: 카테고리마다 탭 하나 (포폴-오리지널, 포폴-원화기반 …) */
   PORTFOLIO = PORTFOLIO.map((c, i) => pf[i] ? { ...c, imgs: pf[i].filter(o => o.img_url).map(o => ({ img: o.img_url, body: o.body })) } : c);
