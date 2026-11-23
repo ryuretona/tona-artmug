@@ -453,7 +453,7 @@ const src = (v, size, still) => {
       const w = v.match(/^https:\/\/static\.wixstatic\.com\/media\/([^/?#]+)/);
       if (w) { // 윅스: 줄인 크기 정보를 떼고, 필요하면 원하는 크기로 다시 요청
         const base = "https://static.wixstatic.com/media/" + w[1];
-        return px ? `${base}/v1/fit/w_${px},h_${px * 2},q_85/${w[1]}` : base;
+        return px ? `${base}/v1/fit/w_${px},h_${px * 2},q_85/${still ? "img.jpg" : w[1]}` : base;
       }
       return v;
     }
@@ -673,7 +673,7 @@ async function loadSheet() {
     if (v("intro")) $("#h-intro").textContent = v("intro");
     const cr = hd.filter(o => o.key === "career" && o.value).map(o => `<li>${esc(o.value)}</li>`);
     if (cr.length) $("#h-cred").innerHTML = cr.join("");
-    if (v("image")) { $("#h-shot").dataset.src = v("image"); $("#h-img").src = src(v("image"), 620); }
+    if (v("image")) { $("#h-shot").dataset.src = v("image"); $("#h-img").src = src(v("image"), 620, true); }
     if (v("caption")) { $("#h-cap").textContent = v("caption"); $("#h-shot").dataset.cap = v("caption"); $("#h-img").alt = v("caption"); }
   }
   if (nt) NOTICES = nt.map(o => o.text).filter(Boolean);
