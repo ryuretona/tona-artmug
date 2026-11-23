@@ -222,7 +222,7 @@ footer{border-top:1px solid var(--line);padding:28px 0 40px;color:var(--sub);fon
       </div>
     </div>
     <figure style="margin:0">
-      <div class="heroimg"><button class="shot" id="h-shot" type="button" data-src="1aOx-KhWBecGm7ouccwozY0Nk8FqG98u_" data-cap="일러스트 기반 작업" style="aspect-ratio:auto;height:100%;border-radius:0"><img id="h-img" src="https://lh3.googleusercontent.com/d/1aOx-KhWBecGm7ouccwozY0Nk8FqG98u_" alt="원화와 완성된 3D 얼굴 비교"></button></div>
+      <div class="heroimg"><button class="shot" id="h-shot" type="button" data-src="1aOx-KhWBecGm7ouccwozY0Nk8FqG98u_" data-cap="일러스트 기반 작업" style="aspect-ratio:auto;height:100%;border-radius:0"><img id="h-img" src="https://lh3.googleusercontent.com/d/1aOx-KhWBecGm7ouccwozY0Nk8FqG98u_=w1240" fetchpriority="high" decoding="async" alt="원화와 완성된 3D 얼굴 비교"></button></div>
       <figcaption class="cap" id="h-cap">일러스트 기반 작업 · 일러스트 / 블렌더 (사용 모델: 시오)</figcaption>
     </figure>
   </section>
@@ -438,17 +438,34 @@ let COLLAB = [
 
 const $ = s => document.querySelector(s);
 const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;" }[c]));
-const src = v => {
+/* 이미지 주소. size(가로 픽셀)를 주면 그 크기로 줄인 이미지를, 안 주면 원본을 불러옵니다.
+   목록에서는 작은 이미지를 쓰고, 눌러서 크게 볼 때만 원본을 불러와서 페이지가 가벼워집니다. */
+const DPR = Math.min(2, window.devicePixelRatio || 1);
+/* still=true면 움직이는 GIF도 첫 장면만 담은 가벼운 JPG로 받아옵니다 (구글 드라이브 이미지). */
+const src = (v, size, still) => {
   if (!v) return "";
+  const px = size ? Math.round(size * DPR) : 0;
+  let id = "";
   if (/^https?:/.test(v)) {
-    const m = v.match(/drive\.google\.com\/(?:file\/d\/|open\?id=)([\w-]+)/); if (m) return "https://lh3.googleusercontent.com/d/" + m[1];
-    const w = v.match(/^(https:\/\/static\.wixstatic\.com\/media\/[^/]+)\/v1\//); if (w) return w[1]; // 윅스: 줄인 크기 정보 제거 → 원본
-    return v;
-  }
-  return "https://lh3.googleusercontent.com/d/" + v;
+    const m = v.match(/drive\.google\.com\/(?:file\/d\/|open\?id=)([\w-]+)/) || v.match(/lh3\.googleusercontent\.com\/d\/([\w-]+)/);
+    if (m) id = m[1];
+    else {
+      const w = v.match(/^https:\/\/static\.wixstatic\.com\/media\/([^/?#]+)/);
+      if (w) { // 윅스: 줄인 크기 정보를 떼고, 필요하면 원하는 크기로 다시 요청
+        const base = "https://static.wixstatic.com/media/" + w[1];
+        return px ? `${base}/v1/fit/w_${px},h_${px * 2},q_85/${w[1]}` : base;
+      }
+      return v;
+    }
+  } else id = v;
+  return "https://lh3.googleusercontent.com/d/" + id + (px ? "=w" + px + (still ? "-rj" : "") : "");
 };
-const shot = (id, cap, extra = "") =>
-  `<button class="shot" type="button" data-src="${esc(id)}" data-cap="${esc(cap)}" ${extra}><img src="${esc(src(id))}" alt="${esc(cap)}" loading="lazy"></button>`;
+/* 목록 이미지: 기본은 가벼운 정지 이미지, 마우스를 올리면 움직이는 원래 이미지(GIF)로 바뀝니다.
+   눌러서 크게 볼 때는 원본을 불러옵니다. still=false면 처음부터 원래 형식 그대로(크기만 줄여서) 보여 줍니다. */
+const shot = (id, cap, extra = "", size = 320, still = true) => {
+  const s = src(id, size, still), anim = still ? src(id, size) : "";
+  return `<button class="shot" type="button" data-src="${esc(id)}" data-cap="${esc(cap)}" ${extra}><img src="${esc(s)}" ${anim && anim !== s ? `data-still="${esc(s)}" data-anim="${esc(anim)}"` : ""} alt="${esc(cap)}" loading="lazy" decoding="async"></button>`;
+};
 
 /* 내용 그리기 */
 const PREVIEW = 4;
@@ -456,15 +473,15 @@ function render() {
 $("#notice-list").innerHTML = NOTICES.map(t => `<li>${esc(t)}</li>`).join("");
 
 $("#addons").innerHTML = ADDONS.map(a =>
-  `<figure>${a.img ? shot(a.img, a.title) : `<div class="noimg">${esc(a.title)}</div>`}<figcaption><b>${esc(a.title)}</b><span>${esc(a.desc)}</span></figcaption></figure>`).join("");
+  `<figure>${a.img ? shot(a.img, a.title, "", 300) : `<div class="noimg">${esc(a.title)}</div>`}<figcaption><b>${esc(a.title)}</b><span>${esc(a.desc)}</span></figcaption></figure>`).join("");
 
-$("#avatars").innerHTML = AVATARS.map(i => shot(i, "보유 아바타 목록")).join("");
+$("#avatars").innerHTML = AVATARS.map(i => shot(i, "보유 아바타 목록", "", 1100, false)).join("");
 
 $("#sales").innerHTML = SALES.map(s =>
-  `<figure class="pf sale">${shot(s.img, s.body ? `${s.title} · ${s.body} 사용` : s.title)}<figcaption><b>${esc(s.title)}</b>${s.body ? `${esc(s.body)} 사용` : ""}</figcaption></figure>`).join("");
+  `<figure class="pf sale">${shot(s.img, s.body ? `${s.title} · ${s.body} 사용` : s.title, "", 380)}<figcaption><b>${esc(s.title)}</b>${s.body ? `${esc(s.body)} 사용` : ""}</figcaption></figure>`).join("");
 
 $("#collab").innerHTML = COLLAB.map(c =>
-  `<li><b>${esc(c.name)} 작가님</b><div class="thumbs">${c.imgs.map((i, n) => shot(i, `${c.name} 작가님 샘플 ${n + 1}`)).join("")}</div>
+  `<li><b>${esc(c.name)} 작가님</b><div class="thumbs">${c.imgs.map((i, n) => shot(i, `${c.name} 작가님 샘플 ${n + 1}`, "", 180)).join("")}</div>
    <span>${esc(c.desc)}</span>${c.link ? ` · <a class="plink" href="${esc(c.link)}" target="_blank" rel="noopener">작가 페이지 보기</a>` : ""}</li>`).join("");
 
 /* 작업 & 포트폴리오: 카테고리마다 대표작 PREVIEW장은 항상 보이고, 나머지는 서랍으로 펼쳐요. */
@@ -508,6 +525,19 @@ document.addEventListener("click", e => {
   const b = e.target.closest(".shot"); if (b) openImage(src(b.dataset.src), b.dataset.cap);
 });
 $("#lb-close").addEventListener("click", closeImage);
+
+/* 마우스를 올리면 움직이는 이미지 재생, 내리면 다시 정지 이미지 (터치 기기는 눌러서 크게 보기로 재생) */
+document.addEventListener("pointerover", e => {
+  if (e.pointerType !== "mouse") return;
+  const img = e.target.closest(".shot")?.querySelector("img[data-anim]");
+  if (img && img.src !== img.dataset.anim) img.src = img.dataset.anim;
+});
+document.addEventListener("pointerout", e => {
+  if (e.pointerType !== "mouse") return;
+  const b = e.target.closest(".shot"); if (!b || b.contains(e.relatedTarget)) return;
+  const img = b.querySelector("img[data-anim]");
+  if (img) img.src = img.dataset.still;
+});
 lb.addEventListener("click", e => { if (e.target === lb) closeImage(); });
 document.addEventListener("keydown", e => { if (e.key === "Escape") closeImage(); });
 
@@ -643,7 +673,7 @@ async function loadSheet() {
     if (v("intro")) $("#h-intro").textContent = v("intro");
     const cr = hd.filter(o => o.key === "career" && o.value).map(o => `<li>${esc(o.value)}</li>`);
     if (cr.length) $("#h-cred").innerHTML = cr.join("");
-    if (v("image")) { $("#h-shot").dataset.src = v("image"); $("#h-img").src = src(v("image")); }
+    if (v("image")) { $("#h-shot").dataset.src = v("image"); $("#h-img").src = src(v("image"), 620); }
     if (v("caption")) { $("#h-cap").textContent = v("caption"); $("#h-shot").dataset.cap = v("caption"); $("#h-img").alt = v("caption"); }
   }
   if (nt) NOTICES = nt.map(o => o.text).filter(Boolean);
