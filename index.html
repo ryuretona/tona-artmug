@@ -306,19 +306,11 @@ footer{border-top:1px solid var(--line);padding:28px 0 40px;color:var(--sub);fon
     <form class="form" id="form" autocomplete="off">
       <div class="field">
         <label for="f_item">1. 신청 항목</label>
-        <select id="f_item">
-          <option value="">선택</option>
-          <option>오리지널 헤드</option>
-          <option>원화 기반 성형</option>
-          <option>작가 미감 성형 (알아서 예쁘게)</option>
-          <option>요청 반영 성형</option>
-          <option>ARKit 페이셜</option>
-          <option>기타</option>
-        </select>
+        <input id="f_item" placeholder="예: 원화 기반 성형 + 웃는 눈">
       </div>
       <div class="field">
-        <label for="f_platform">2. 플랫폼 / 방송 닉네임</label>
-        <input id="f_platform" placeholder="예: 치지직 / 닉네임">
+        <label for="f_platform">2. 방송 닉네임 / 방송국 주소</label>
+        <input id="f_platform" placeholder="예: 토나 / chzzk.naver.com/…">
       </div>
       <div class="field">
         <label for="f_avatar">3. 사용하려는 아바타 BOOTH 링크</label>
@@ -573,7 +565,7 @@ function formText() {
   return [
     "[TONA Facial 작업 신청]",
     "", "1. 신청 항목", "- " + val("f_item"),
-    "", "2. 플랫폼 / 방송 닉네임", "- " + val("f_platform"),
+    "", "2. 방송 닉네임 / 방송국 주소", "- " + val("f_platform"),
     "", "3. 아바타 BOOTH 링크", "- " + val("f_avatar"),
     "", "4. 받을 파일 형식", "- " + val("f_format"),
     "", "5. 원하는 얼굴 / 캐릭터 느낌", "- " + val("f_vibe"),
