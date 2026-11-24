@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TONA Props · 아트머그</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+/*
+VOICE   차분하고 정돈된 갤러리. 장식 없이 작품이 말하게.
+IDEA    작가 개인 사이트(tonafacial.com)와 같은 흰 종이 위 전시 도록.
+PICTURE 히어로의 원화→3D 이미지, 그 아래는 전부 작품 이미지.
+COLOUR  흰 바탕, 먹색 글자, 얇은 회색 선. 색은 작품에만.
+TYPE    큰 영문 제목은 Inter 200, 본문은 Noto Sans KR. 크기 네 단계.
+*/
+:root{
+  --bg:#fff; --ink:#1d1d20; --sub:#6b6b72; --line:#dcdcdf; --soft:#f5f5f6;
+  --r:14px; --max:1080px;
+}
+*{box-sizing:border-box;min-width:0}
+html{scroll-padding-top:24px}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.7 "Noto Sans KR",system-ui,sans-serif;overflow-x:clip;-webkit-font-smoothing:antialiased}
+img{display:block;max-width:100%}
+a{color:inherit}
+.wrap{max-width:var(--max);margin:0 auto;padding:0 max(5vw,20px)}
+section{padding:72px 0;border-top:2px solid var(--ink)}
+section:first-of-type{border-top:0}
+h2{font:300 15px/1.4 Inter,"Noto Sans KR",sans-serif;letter-spacing:.02em;color:var(--sub);margin:0 0 6px}
+h3{font-size:26px;font-weight:500;line-height:1.3;margin:0 0 10px;text-wrap:balance}
+p{margin:0}
+.lead{color:var(--sub);max-width:60ch}
+
+/* hero */
+.hero{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:48px;align-items:end;padding:64px 0 72px}
+.brand{white-space:pre-line;font:200 clamp(56px,9vw,112px)/.95 Inter,sans-serif;letter-spacing:-.03em;margin:0}
+.tag{font:300 17px Inter,sans-serif;color:var(--sub);margin:14px 0 28px}
+.intro{font-size:17px;margin-bottom:22px}
+.cred{list-style:none;padding:0;margin:0 0 30px;color:var(--sub);font-size:15px}
+.cred li{padding:6px 0;border-top:1px solid var(--line)}
+.cred li:last-child{border-bottom:1px solid var(--line)}
+.btns{display:flex;flex-wrap:wrap;gap:10px}
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:46px;padding:0 22px;border-radius:999px;border:1px solid var(--ink);background:none;color:var(--ink);font:500 15px "Noto Sans KR",sans-serif;text-decoration:none;cursor:pointer}
+.btn.fill{background:var(--ink);color:#fff}
+.btn:focus-visible,.tab:focus-visible,.shot:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+.heroimg{border-radius:var(--r);overflow:hidden;background:var(--soft);aspect-ratio:4/3}
+.heroimg img{width:100%;height:100%;object-fit:cover}
+.cap{font-size:13px;color:var(--sub);margin-top:10px}
+
+/* included */
+.inc{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,2fr);gap:40px;align-items:start}
+.inc ul{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));border-left:1px solid var(--line)}
+.inc li{padding:4px 22px 6px;border-right:1px solid var(--line)}
+.inc b{display:block;font-weight:500;font-size:17px;margin-bottom:6px}
+.inc span{color:var(--sub);font-size:15px}
+
+/* services */
+.svc{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));border-top:1px solid var(--line);margin-top:32px}
+.svc>div{padding:28px 28px 32px 0;border-bottom:1px solid var(--line)}
+.svc>div:nth-child(even){padding:28px 0 32px 28px;border-left:1px solid var(--line)}
+.svc b{display:block;font-weight:500;font-size:18px;margin-bottom:6px}
+.svc span{color:var(--sub);font-size:15px}
+.addons{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:20px;margin-top:28px}
+.addons figure{margin:0}
+.noimg{aspect-ratio:1/1;border-radius:var(--r);background:var(--soft);display:flex;align-items:center;justify-content:center;font:300 clamp(15px,2vw,20px) Inter,"Noto Sans KR",sans-serif;color:var(--sub);text-align:center;padding:12px}
+.addons .shot{aspect-ratio:1/1}
+.addons figcaption{margin-top:12px}
+.addons figcaption b{font-weight:500}
+.addons figcaption span{display:block;color:var(--sub);font-size:15px}
+
+/* portfolio */
+.tabs{display:flex;flex-wrap:wrap;gap:8px;margin:28px 0 10px}
+.tab{min-height:40px;padding:0 16px;border-radius:999px;border:1px solid var(--line);background:none;color:var(--sub);font:400 15px "Noto Sans KR",sans-serif;cursor:pointer}
+.tab[aria-selected=true]{border-color:var(--ink);background:var(--ink);color:#fff}
+.tabdesc{color:var(--sub);font-size:15px;min-height:1.7em;margin-bottom:24px}
+.grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;list-style:none;margin:0;padding:0}
+.shot{display:block;width:100%;padding:0;border:0;border-radius:var(--r);overflow:hidden;background:var(--soft);aspect-ratio:1/1;cursor:zoom-in}
+.shot img{width:100%;height:100%;object-fit:cover;transition:transform .5s ease}
+.shot:hover img{transform:scale(1.03)}
+.drawer{display:grid;grid-template-rows:0fr;transition:grid-template-rows .45s ease}
+.drawer.open{grid-template-rows:1fr}
+.drawer-in{overflow:hidden}
+.drawer .grid{padding-top:4px}
+.close{display:block;margin:20px auto 0;min-height:40px;padding:0 20px;border-radius:999px;border:1px solid var(--line);background:none;color:var(--sub);font:400 14px "Noto Sans KR",sans-serif;cursor:pointer}
+.close:hover{color:var(--ink);border-color:var(--ink)}
+@media (prefers-reduced-motion:reduce){.drawer{transition:none}}
+.cats{margin-top:12px}
+.pf{margin:0}
+.pf figcaption{margin-top:8px;font-size:13px;color:var(--sub);line-height:1.4;overflow-wrap:anywhere}
+.cat{padding:32px 0;border-bottom:1px solid var(--line)}
+.cat:last-child{border-bottom:0;padding-bottom:0}
+.cat-head{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 14px;margin-bottom:16px}
+.cat-head h4{margin:0;font-size:20px;font-weight:500}
+.cat-head h4 span{font:300 14px Inter,sans-serif;color:var(--sub);margin-left:6px}
+.cat-head p{color:var(--sub);font-size:15px;flex:1 1 320px}
+.cat .drawer .grid{padding-top:12px}
+.more{display:block;margin:16px auto 0;min-height:42px;padding:0 22px;border-radius:999px;border:1px solid var(--line);background:none;color:var(--ink);font:400 14px "Noto Sans KR",sans-serif;cursor:pointer}
+.more:hover{border-color:var(--ink)}
+.more:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+.soon{color:var(--sub);font-size:14px;padding:18px 0;border:1px dashed var(--line);border-radius:var(--r);text-align:center}
+.sales{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px;margin-top:24px}
+.empty{grid-column:1/-1;padding:48px 0;text-align:center;color:var(--sub);border:1px dashed var(--line);border-radius:var(--r)}
+
+/* steps */
+.steps{list-style:none;margin:32px 0 0;padding:0;display:grid;grid-template-columns:repeat(6,minmax(0,1fr));border-top:1px solid var(--line)}
+.steps li{padding:16px 14px 0 0}
+.steps i{font:300 13px Inter,sans-serif;color:var(--sub);font-style:normal}
+.steps b{display:block;font-weight:500;margin:4px 0 6px}
+.steps span{color:var(--sub);font-size:14px;line-height:1.6;display:block}
+.formats{margin:28px 0 0;color:var(--sub);font-size:15px}
+.tip{margin-top:14px;padding:18px 20px;border:1px solid var(--line);border-radius:var(--r);max-width:720px}
+.tip b{display:block;font-weight:500;margin-bottom:4px}
+.tip p{color:var(--sub);font-size:15px}
+.svc>div:last-child:nth-child(odd){grid-column:1/-1}
+
+/* notice */
+.notice{list-style:none;margin:28px 0 0;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));column-gap:40px}
+.notice li{display:flex;gap:14px;padding:14px 0;border-bottom:1px solid var(--line);font-size:15px}
+.notice li::before{content:counter(n);counter-increment:n;font:300 13px/1.9 Inter,sans-serif;color:var(--sub);flex:none;width:1.4em}
+.notice{counter-reset:n}
+
+/* avatars, sales, collab */
+.wide{margin-top:28px;border-radius:var(--r);overflow:hidden;background:var(--soft)}
+.wide .shot{aspect-ratio:auto;border-radius:0}
+.wide .shot img{height:auto}
+.two{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:40px}
+.sale .shot{aspect-ratio:4/5}
+.pf figcaption b{display:block;font-size:15px;font-weight:500;color:var(--ink)}
+.pf figcaption a{text-decoration:none}
+.pf figcaption a:hover{text-decoration:underline}
+.collab{list-style:none;margin:24px 0 0;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:28px 40px}
+.collab b{font-weight:500}
+.collab .thumbs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;margin:10px 0}
+.collab .shot{border-radius:10px}
+.collab span{color:var(--sub);font-size:15px}
+.collab a.plink{font-size:14px;color:var(--sub)}
+
+/* form */
+.form{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px 28px;margin-top:32px}
+.field{display:flex;flex-direction:column;gap:8px}
+.field.full{grid-column:1/-1}
+label{font-weight:500;font-size:15px}
+.hint{color:var(--sub);font-size:14px;font-weight:400}
+input,select,textarea{width:100%;font:16px "Noto Sans KR",sans-serif;color:var(--ink);background:#fff;border:1px solid var(--line);border-radius:10px;padding:12px 14px;min-height:48px}
+textarea{min-height:120px;resize:vertical;line-height:1.6}
+.attach{display:flex;gap:10px;align-items:flex-start;background:var(--soft);border-radius:10px;padding:12px 14px;font-size:14px;color:var(--ink)}
+.warn{grid-column:1/-1;font-size:14px;color:#b3261e}
+.actions{grid-column:1/-1;display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.toast{font-size:14px;color:var(--ink);opacity:0;transition:opacity .3s}
+.toast.on{opacity:1}
+#fallback{display:none;grid-column:1/-1}
+#fallback.on{display:block}
+
+/* lightbox (used only when opened outside artmug) */
+.lb{position:fixed;inset:0;background:rgba(20,20,22,.7);display:none;align-items:center;justify-content:center;padding:20px;z-index:9}
+.lb.on{display:flex}
+.lb img{max-height:90vh;border-radius:var(--r);background:#fff}
+.lb button{position:absolute;top:16px;right:16px;width:44px;height:44px;border-radius:999px;border:0;background:#fff;font-size:20px;cursor:pointer}
+
+/* 바로가기 리모컨 */
+.remote{position:fixed;right:20px;bottom:20px;z-index:8;display:flex;flex-direction:column;gap:4px;padding:6px;background:rgba(255,255,255,.94);border:1px solid var(--line);border-radius:22px;box-shadow:0 8px 28px rgba(0,0,0,.08);opacity:0;transform:translateY(8px);pointer-events:none;transition:opacity .25s,transform .25s}
+.remote.on{opacity:1;transform:none;pointer-events:auto}
+.remote.framed{position:absolute;bottom:auto}
+.remote a{display:flex;align-items:center;justify-content:center;min-width:92px;min-height:40px;padding:0 14px;border-radius:999px;text-decoration:none;font-size:14px;color:var(--sub)}
+.remote a:hover{color:var(--ink);background:var(--soft)}
+.remote a.cur{color:var(--ink);font-weight:500}
+.remote a.go{background:var(--ink);color:#fff}
+.remote a.up{font:300 18px Inter,sans-serif;min-height:36px}
+.remote a:focus-visible{outline:2px solid var(--ink);outline-offset:1px}
+@media (max-width:860px){.steps[style]{grid-template-columns:repeat(3,minmax(0,1fr))!important}.inc ul[style]{grid-template-columns:1fr!important}}
+@media (max-width:640px){.steps[style]{grid-template-columns:1fr!important}
+  .remote{right:12px;bottom:12px;flex-direction:row;border-radius:999px}
+  .remote a{min-width:0;padding:0 12px;font-size:13px}
+}
+@media (prefers-reduced-motion:reduce){.remote{transition:none}}
+footer{border-top:1px solid var(--line);padding:28px 0 40px;color:var(--sub);font-size:13px}
+
+@media (max-width:860px){
+  .grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .steps{grid-template-columns:repeat(3,minmax(0,1fr));row-gap:24px}
+  .inc{grid-template-columns:1fr;gap:20px}
+}
+@media (max-width:640px){
+  section{padding:52px 0}
+  h3{font-size:22px}
+  .hero{grid-template-columns:1fr;gap:28px;padding:40px 0 52px}
+  .inc ul{grid-template-columns:1fr;border-left:0;border-top:1px solid var(--line)}
+  .inc li{border-right:0;border-bottom:1px solid var(--line);padding:14px 0}
+  .svc,.two,.notice,.form,.collab{grid-template-columns:1fr}
+  .sales{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+  .cat{padding:26px 0}
+  .addons{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.addons figcaption span{font-size:14px}
+  .svc>div,.svc>div:nth-child(even){padding:22px 0;border-left:0}
+  .grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+  .steps{grid-template-columns:1fr;border-top:0;row-gap:0}
+  .steps li{display:grid;grid-template-columns:2em 1fr;padding:14px 0;border-top:1px solid var(--line)}
+  .steps li>*{grid-column:2}.steps i{grid-column:1;grid-row:1/3}
+  .two{gap:52px}
+}
+@media (prefers-reduced-motion:reduce){.shot img{transition:none}.toast{transition:none}}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <!-- 소개 -->
+  <section class="hero" id="top">
+    <div>
+      <h1 class="brand" id="h-title">TONA<br>Props</h1>
+      <p class="tag" id="h-sub">Props / Fan Character</p>
+      <p class="intro" id="h-intro">머리 장식, 헤드폰 같은 착용 소품부터 간단한 팬 캐릭터까지 제작합니다.</p>
+      <ul class="cred" id="h-cred">
+        <li>게임학과 4년제 졸업</li>
+        <li>게임 그래픽 스튜디오 근무</li>
+      </ul>
+      <div class="btns">
+        <a class="btn" href="#portfolio" data-goto>포트폴리오</a>
+        <a class="btn" href="#process" data-goto>정보</a>
+        <a class="btn fill" href="#apply" data-goto>신청</a>
+      </div>
+    </div>
+    <figure style="margin:0">
+      <div class="heroimg"><button class="shot" id="h-shot" type="button" data-src="https://artmugfile5.cafe24.com/image/up_img/detail/5/goods_58593/17831766470_Re.jpg" data-cap="소품 작업" style="aspect-ratio:auto;height:100%;border-radius:0"><img id="h-img" src="https://artmugfile5.cafe24.com/image/up_img/detail/5/goods_58593/17831766470_Re.jpg" fetchpriority="high" decoding="async" alt="꽃 머리 장식 소품"></button></div>
+      <figcaption class="cap" id="h-cap">사용 프로그램 · 3DsMax / Blender / Substance 3D Painter / Unity</figcaption>
+    </figure>
+  </section>
+
+  <!-- 작업 안내 -->
+  <section class="inc" id="info">
+    <div>
+      <h2>Info</h2>
+      <h3>작업 안내</h3>
+    </div>
+    <ul style="grid-template-columns:repeat(3,minmax(0,1fr))">
+      <li><b>작업 기간</b><span>시작일로부터 3일이며, 빠른 마감 옵션도 있습니다.</span></li>
+      <li><b>Unity 패키지 전달</b><span>와루도를 사용하신다면 프롭 형태로도 전달 가능합니다.</span></li>
+      <li><b>릴툰(lilToon)</b><span>릴툰으로 작업해서 전달합니다.</span></li>
+    </ul>
+  </section>
+
+  <!-- 작업 & 포트폴리오 -->
+  <section id="portfolio">
+    <h2>Work</h2>
+    <h3>작업 &amp; 포트폴리오</h3>
+    <p class="lead">카테고리마다 대표작을 먼저 보여 드리며, 나머지는 펼쳐서 보실 수 있습니다.</p>
+    <div class="cats" id="cats"></div>
+  </section>
+
+
+  <!-- 작업 순서 -->
+  <section id="process">
+    <h2>Process</h2>
+    <h3>작업 순서</h3>
+    <ol class="steps" style="grid-template-columns:repeat(5,minmax(0,1fr))">
+      <li><i>1</i><b>문의</b><span>양식을 복사해 문의글로 보내 주시면 일정과 가능 여부를 안내합니다.</span></li>
+      <li><i>2</i><b>아트머그 결제</b><span>일정 확인 후 아트머그에서 결제합니다.</span></li>
+      <li><i>3</i><b>디스코드 연락처 교환</b><span>결제 후 디스코드 연락처를 반드시 교환합니다.</span></li>
+      <li><i>4</i><b>레퍼런스 전달 · 작업</b><span>레퍼런스를 전달받아 작업을 진행합니다.</span></li>
+      <li><i>5</i><b>파일 전달 · A/S</b><span>작업을 마친 뒤 파일을 전달하고 A/S를 진행합니다.</span></li>
+    </ol>
+    <p class="formats">전달 파일 · Unity 패키지 (와루도 사용 시 프롭 형태 가능)</p>
+  </section>
+
+  <!-- 공지 -->
+  <section id="notice">
+    <h2>Notice</h2>
+    <h3>공지사항</h3>
+    <ol class="notice" id="notice-list"></ol>
+  </section>
+
+
+
+  <!-- 신청 양식 -->
+  <section id="apply">
+    <h2>Apply</h2>
+    <h3>신청 양식</h3>
+    <p class="lead">아래 내용을 작성하고 <b>양식 복사</b>를 누른 뒤, 아트머그 문의글에 붙여 넣어 주시기 바랍니다.</p>
+    <form class="form" id="form" autocomplete="off">
+      <div class="field">
+        <label for="f_item">1. 신청 항목</label>
+        <input id="f_item" placeholder="예: 팬 캐릭터 제작, 소품 제작">
+      </div>
+      <div class="field">
+        <label for="f_platform">2. 방송 닉네임 / 방송국 주소</label>
+        <input id="f_platform" placeholder="예: 토나 / chzzk.naver.com/…">
+      </div>
+      <div class="field full">
+        <label for="f_extra">3. 추가 기능 여부</label>
+        <input id="f_extra" placeholder="예: 눈 깜빡이기 넣고 싶습니다 / 특정 부분이 흔들리게 하고 싶습니다">
+      </div>
+      <div class="field full">
+        <label for="f_vibe">4. 원하는 디자인 / 설명 <span class="hint">살리고 싶은 부분이나 분위기를 자유롭게 적어 주시기 바랍니다.</span></label>
+        <textarea id="f_vibe" placeholder="예: 레퍼런스의 색감은 그대로, 크기는 머리에 얹을 정도로"></textarea>
+        <p class="attach"><b>레퍼런스 이미지(정면도 등)는 필수입니다.</b> 양식을 복사한 뒤 아트머그 문의글에 직접 첨부해 주시기 바랍니다. 설명만으로는 제작하지 않습니다.</p>
+      </div>
+      <div class="field full">
+        <label for="f_note">5. 기타 문의 / 당부사항</label>
+        <textarea id="f_note" style="min-height:90px"></textarea>
+      </div>
+      <p class="warn">결제 전에는 연락처를 적지 말아 주시기 바랍니다.</p>
+      <div class="actions">
+        <button class="btn fill" type="button" id="copy">양식 복사</button>
+        <button class="btn" type="button" id="reset">초기화</button>
+        <span class="toast" id="toast" role="status" aria-live="polite"></span>
+      </div>
+      <div class="field" id="fallback">
+        <label for="fallback-text">복사가 막혀 있습니다. 아래 내용을 직접 복사해 주시기 바랍니다.</label>
+        <textarea id="fallback-text" readonly></textarea>
+      </div>
+    </form>
+  </section>
+
+
+</div>
+
+<footer><div class="wrap">TONA · 모든 이미지는 저작권이 있으며 무단 도용 및 복제를 금합니다.</div></footer>
+
+<nav class="remote" id="remote" aria-label="바로가기">
+  <a href="#portfolio" data-goto data-sec="portfolio">포트폴리오</a>
+  <a href="#process" data-goto data-sec="process">정보</a>
+  <a href="#apply" data-goto data-sec="apply" class="go">신청</a>
+  <a href="#top" data-goto class="up" aria-label="맨 위로">↑</a>
+</nav>
+
+<div class="lb" id="lb" aria-hidden="true"><img id="lb-img" alt=""><button type="button" id="lb-close" aria-label="닫기">×</button></div>
+
+<script>
+{
+/* =========================================================
+   구글 시트 연결
+   SHEET_ID에 시트 주소의 /d/ 와 /edit 사이 ID를 넣으면 시트 내용으로 페이지가 그려집니다.
+   시트는 공유 → '링크가 있는 모든 사용자' 뷰어로 설정해야 합니다.
+   비워 두거나 시트를 못 불러오면 아래 기본 내용이 그대로 보입니다.
+   ========================================================= */
+const SHEET_ID = "1cHT3yYiscbmTz1Cx7nlaeiDWNrTc2WAesm3Am3lQlQw";
+
+/* ---- 기본 내용 (시트 연결 전 / 시트를 못 불러올 때) ---- */
+
+let NOTICES = [
+  "이미지 / 정면도 등이 필요합니다. 설명만으로는 제작하지 않습니다.",
+  "특정 BOOTH 의상 / 헤어 / 아바타를 기반으로 제작하는 경우, 작가가 보유하지 않은 항목은 기프트로 보내주셔야 합니다.",
+  "릴툰(lilToon)으로 작업해서 전달합니다. 닐로툰 등 다른 셰이더로 변환하는 작업은 진행하지 않습니다.",
+  "기본 유니티 패키지로 전달하며, 와루도를 사용 중이라면 프롭 형태로도 전달 가능합니다.",
+  "결제 전에는 절대로 연락처를 전달하지 말아 주시기 바랍니다. (아트머그 규정)",
+  "디스코드 연락처 교환은 반드시 진행합니다.",
+  "작업물은 포트폴리오로 사용됩니다.",
+  "간단한 팬 캐릭터 위주입니다. 풀바디 오리지널 캐릭터 모델링은 하지 않습니다."
+];
+
+/* 시트 탭 이름 앞에 붙는 글자 (아트머그 메인 페이지와 같은 시트를 함께 씁니다) */
+const P = "소품-";
+
+let PORTFOLIO = [
+  { key: "props", tab: P + "포폴-소품", name: "소품", desc: "머리 장식, 헤드폰 같은 착용 소품을 제작합니다.",
+    imgs: ["https://artmugfile5.cafe24.com/image/up_img/detail/5/goods_58593/17831766470_Re.jpg", "https://artmugfile5.cafe24.com/image/up_img/detail/5/goods_58593/17793371930_Re.jpg"] },
+  { key: "fan", tab: P + "포폴-팬캐릭터", name: "팬 캐릭터", desc: "레퍼런스를 바탕으로 간단한 팬 캐릭터를 제작합니다.",
+    imgs: ["https://artmugfile5.cafe24.com/image/up_img/detail/5/goods_58593/17831769350_Re.jpg", "https://artmugfile5.cafe24.com/image/up_img/detail/5/goods_58593/17831769351_Re.jpg", "https://artmugfile5.cafe24.com/image/up_img/detail/5/goods_58593/17831770600_Re.jpg", "https://artmugfile5.cafe24.com/image/up_img/detail/5/goods_58593/17793372010_Re.jpg", "https://artmugfile5.cafe24.com/image/up_img/detail/5/goods_58593/17792548861_Re.jpg", "https://artmugfile5.cafe24.com/image/up_img/detail/5/goods_58593/17792548862_Re.jpg", "https://artmugfile5.cafe24.com/image/up_img/detail/5/goods_58593/17805530380.gif"] }
+];
+
+/* ========================================================= */
+
+const $ = s => document.querySelector(s);
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;" }[c]));
+/* 이미지 주소. size(가로 픽셀)를 주면 그 크기로 줄인 이미지를, 안 주면 원본을 불러옵니다.
+   목록에서는 작은 이미지를 쓰고, 눌러서 크게 볼 때만 원본을 불러와서 페이지가 가벼워집니다. */
+const DPR = Math.min(2, window.devicePixelRatio || 1);
+/* still=true면 움직이는 GIF도 첫 장면만 담은 가벼운 JPG로 받아옵니다 (구글 드라이브 이미지). */
+const src = (v, size, still) => {
+  if (!v) return "";
+  const px = size ? Math.round(size * DPR) : 0;
+  let id = "";
+  if (/^https?:/.test(v)) {
+    const m = v.match(/drive\.google\.com\/(?:file\/d\/|open\?id=)([\w-]+)/) || v.match(/lh3\.googleusercontent\.com\/d\/([\w-]+)/);
+    if (m) id = m[1];
+    else {
+      const w = v.match(/^https:\/\/static\.wixstatic\.com\/media\/([^/?#]+)/);
+      if (w) { // 윅스: 줄인 크기 정보를 떼고, 필요하면 원하는 크기로 다시 요청
+        const base = "https://static.wixstatic.com/media/" + w[1];
+        return px ? `${base}/v1/fit/w_${px},h_${px * 2},q_85/${still ? "img.jpg" : w[1]}` : base;
+      }
+      return v;
+    }
+  } else id = v;
+  return "https://lh3.googleusercontent.com/d/" + id + (px ? "=w" + px + (still ? "-rj" : "") : "");
+};
+/* 목록 이미지: 기본은 가벼운 정지 이미지, 마우스를 올리면 움직이는 원래 이미지(GIF)로 바뀝니다.
+   눌러서 크게 볼 때는 원본을 불러옵니다. still=false면 처음부터 원래 형식 그대로(크기만 줄여서) 보여 줍니다. */
+const shot = (id, cap, extra = "", size = 320, still = true) => {
+  const s = src(id, size, still), anim = still ? src(id, size) : "";
+  return `<button class="shot" type="button" data-src="${esc(id)}" data-cap="${esc(cap)}" ${extra}><img src="${esc(s)}" ${anim && anim !== s ? `data-still="${esc(s)}" data-anim="${esc(anim)}"` : ""} alt="${esc(cap)}" loading="lazy" decoding="async"></button>`;
+};
+
+/* 내용 그리기 */
+const PREVIEW = 4;
+function render() {
+$("#notice-list").innerHTML = NOTICES.map(t => `<li>${esc(t)}</li>`).join("");
+
+
+
+
+
+
+
+
+
+/* 작업 & 포트폴리오: 카테고리마다 대표작 PREVIEW장은 항상 보이고, 나머지는 서랍으로 펼쳐요. */
+$("#cats").innerHTML = PORTFOLIO.map(c => {
+  const first = c.imgs.slice(0, PREVIEW), rest = c.imgs.slice(PREVIEW);
+  const li = arr => arr.map(it => {
+    const id = typeof it === "string" ? it : it.img, body = typeof it === "string" ? "" : (it.body || "");
+    const cap = body ? `${c.name} · ${body} 사용` : c.name;
+    return `<li><figure class="pf">${shot(id, cap)}${body ? `<figcaption>${esc(body)} 사용</figcaption>` : ""}</figure></li>`;
+  }).join("");
+  return `<div class="cat" id="cat-${c.key}">
+    <div class="cat-head"><h4>${esc(c.name)}${c.imgs.length ? `<span>${c.imgs.length}</span>` : ""}</h4><p>${esc(c.desc)}</p></div>
+    ${first.length ? `<ul class="grid">${li(first)}</ul>` : `<p class="soon">작업 이미지를 준비하고 있습니다.</p>`}
+    ${rest.length ? `<div class="drawer"><div class="drawer-in"><ul class="grid">${li(rest)}</ul></div></div>
+      <button class="more" type="button" aria-expanded="false" data-n="${rest.length}">${rest.length}장 더 보기</button>` : ""}
+  </div>`;
+}).join("");
+sendHeight();
+}
+
+$("#cats").addEventListener("click", e => {
+  const b = e.target.closest(".more"); if (!b) return;
+  const cat = b.closest(".cat"), d = cat.querySelector(".drawer");
+  const open = !d.classList.contains("open");
+  d.classList.toggle("open", open);
+  b.setAttribute("aria-expanded", open);
+  b.textContent = open ? "접기" : `${b.dataset.n}장 더 보기`;
+  if (!open) goTo("#" + cat.id);
+  setTimeout(sendHeight, 500);
+});
+
+/* 이미지 크게 보기: 아트머그 안에서는 부모 페이지 모달, 단독으로 열면 자체 모달 */
+const inFrame = window.parent && window.parent !== window;
+const lb = $("#lb"), lbImg = $("#lb-img");
+function openImage(s, cap) {
+  if (inFrame) { window.parent.postMessage({ source: "syura-css", type: "SYURA_OPEN_IMAGE_MODAL", src: s, title: cap, caption: cap }, "*"); return; }
+  lbImg.src = s; lbImg.alt = cap || ""; lb.classList.add("on"); lb.setAttribute("aria-hidden", "false");
+}
+function closeImage() { lb.classList.remove("on"); lb.setAttribute("aria-hidden", "true"); lbImg.src = ""; }
+document.addEventListener("click", e => {
+  const b = e.target.closest(".shot"); if (b) openImage(src(b.dataset.src), b.dataset.cap);
+});
+$("#lb-close").addEventListener("click", closeImage);
+
+/* 마우스를 올리면 움직이는 이미지 재생, 내리면 다시 정지 이미지 (터치 기기는 눌러서 크게 보기로 재생) */
+document.addEventListener("pointerover", e => {
+  if (e.pointerType !== "mouse") return;
+  const img = e.target.closest(".shot")?.querySelector("img[data-anim]");
+  if (img && img.src !== img.dataset.anim) img.src = img.dataset.anim;
+});
+document.addEventListener("pointerout", e => {
+  if (e.pointerType !== "mouse") return;
+  const b = e.target.closest(".shot"); if (!b || b.contains(e.relatedTarget)) return;
+  const img = b.querySelector("img[data-anim]");
+  if (img) img.src = img.dataset.still;
+});
+lb.addEventListener("click", e => { if (e.target === lb) closeImage(); });
+document.addEventListener("keydown", e => { if (e.key === "Escape") closeImage(); });
+
+/* 페이지 안 이동 (상단 버튼 + 리모컨 공용) */
+function goTo(sel) {
+  const t = document.querySelector(sel); if (!t) return;
+  const y = t.getBoundingClientRect().top + window.scrollY;
+  if (inFrame) window.parent.postMessage({ source: "syura-css", type: "SYURA_PARENT_SCROLL_TO", targetY: y, navHeight: 16 }, "*");
+  else t.scrollIntoView({ behavior: "smooth" });
+}
+document.addEventListener("click", e => {
+  const a = e.target.closest("[data-goto]"); if (!a) return;
+  e.preventDefault(); goTo(a.getAttribute("href"));
+});
+
+/* 바로가기 리모컨
+   아트머그 안에서는 iframe 전체가 펼쳐져 있어서 position:fixed가 화면에 붙지 않아요.
+   그래서 부모 페이지가 보내 주는 스크롤 위치로 "지금 보이는 화면의 오른쪽 아래"를 계산해서 붙여요. */
+const remote = $("#remote");
+const secs = ["portfolio", "process", "apply"].map(id => document.getElementById(id));
+let view = null; // { top, bottom } : 지금 화면에 보이는 문서 범위
+function placeRemote() {
+  let top, bottom;
+  if (inFrame && view) { top = view.top; bottom = view.bottom; }
+  else { top = window.scrollY; bottom = top + window.innerHeight; }
+  remote.classList.toggle("on", top > 360);
+  if (inFrame && view) {
+    remote.classList.add("framed");
+    const gap = innerWidth <= 640 ? 12 : 20;
+    const y = Math.max(0, Math.min(document.body.scrollHeight - remote.offsetHeight - gap, bottom - remote.offsetHeight - gap));
+    remote.style.top = y + "px";
+  }
+  const mid = top + (bottom - top) * 0.4;
+  let cur = "";
+  secs.forEach(s => { if (s && s.offsetTop <= mid) cur = s.id; });
+  remote.querySelectorAll("[data-sec]").forEach(a => a.classList.toggle("cur", a.dataset.sec === cur));
+}
+window.addEventListener("message", e => {
+  if (!/^https:\/\/(www\.)?artmug\.kr$/.test(e.origin)) return;
+  const d = e.data || {};
+  if (d.source !== "syura-artmug-parent" || d.type !== "SYURA_PARENT_VIEWPORT") return;
+  const t = Math.max(0, -Number(d.iframeTop || 0));
+  view = { top: t, bottom: t + Number(d.viewportHeight || innerHeight) };
+  placeRemote();
+});
+window.addEventListener("scroll", placeRemote, { passive: true });
+window.addEventListener("resize", placeRemote);
+placeRemote();
+
+
+
+/* 신청 양식 */
+const val = id => ($("#" + id)?.value || "").trim() || "없음";
+function formText() {
+  return [
+    "[TONA 소품 · 팬캐릭터 작업 신청]",
+    "", "1. 신청 항목", "- " + val("f_item"),
+    "", "2. 방송 닉네임 / 방송국 주소", "- " + val("f_platform"),
+    "", "3. 추가 기능 여부", "- " + val("f_extra"),
+    "", "4. 원하는 디자인 / 설명", "- " + val("f_vibe"),
+    "  (레퍼런스 이미지는 이 문의글에 첨부했습니다)",
+    "", "5. 기타 문의 / 당부사항", "- " + val("f_note")
+  ].join("\n");
+}
+const toast = $("#toast"); let tt;
+function say(msg) { toast.textContent = msg; toast.classList.add("on"); clearTimeout(tt); tt = setTimeout(() => toast.classList.remove("on"), 5000); }
+$("#copy").addEventListener("click", async () => {
+  const text = formText();
+  let ok = false;
+  try { await navigator.clipboard.writeText(text); ok = true; } catch (err) {
+    const ta = document.createElement("textarea"); ta.value = text; ta.style.cssText = "position:fixed;left:-9999px";
+    document.body.appendChild(ta); ta.select(); try { ok = document.execCommand("copy"); } catch (e2) {} ta.remove();
+  }
+  if (ok) { $("#fallback").classList.remove("on"); say("복사되었습니다. 아트머그 문의글에 붙여 넣고, 참고 이미지도 함께 첨부해 주시기 바랍니다."); }
+  else { $("#fallback-text").value = text; $("#fallback").classList.add("on"); }
+  sendHeight();
+});
+$("#reset").addEventListener("click", () => { $("#form").reset(); $("#fallback").classList.remove("on"); toast.classList.remove("on"); sendHeight(); });
+
+/* 아트머그 iframe 높이 자동 조절 (기존 부모 스크립트와 같은 신호) */
+let lastH = 0;
+function sendHeight() {
+  if (!inFrame) return;
+  requestAnimationFrame(() => {
+    const h = Math.ceil(Math.max(document.documentElement.scrollHeight, document.body.scrollHeight));
+    if (Math.abs(h - lastH) < 4) return; lastH = h;
+    window.parent.postMessage({ source: "syura-css", type: "SYURA_IFRAME_HEIGHT", height: h }, "*");
+  });
+}
+if (inFrame) {
+  window.parent.postMessage({ source: "syura-css", type: "SYURA_IFRAME_READY" }, "*");
+  const ro = new ResizeObserver(sendHeight); ro.observe(document.body);
+  window.addEventListener("load", sendHeight);
+  [300, 1000, 2500].forEach(t => setTimeout(sendHeight, t));
+}
+
+
+/* 구글 시트 불러오기: 탭 이름으로 읽고, 1행 제목(영문)으로 칸을 찾습니다. */
+function parseCsv(t) {
+  const rows = []; let row = [], f = "", q = false;
+  t = t.replace(/\r\n?/g, "\n");
+  for (let i = 0; i < t.length; i++) {
+    const ch = t[i];
+    if (q) { if (ch === '"') { if (t[i + 1] === '"') { f += '"'; i++; } else q = false; } else f += ch; }
+    else if (ch === '"') q = true;
+    else if (ch === ",") { row.push(f); f = ""; }
+    else if (ch === "\n") { row.push(f); rows.push(row); row = []; f = ""; }
+    else f += ch;
+  }
+  if (f !== "" || row.length) { row.push(f); rows.push(row); }
+  return rows;
+}
+async function tab(name) {
+  const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=${encodeURIComponent(name)}`;
+  const res = await fetch(url, { cache: "no-store" });
+  if (!res.ok) throw new Error(name + " " + res.status);
+  const [head, ...rows] = parseCsv(await res.text());
+  const keys = head.map(k => k.trim().toLowerCase());
+  return rows.map(r => Object.fromEntries(keys.map((k, i) => [k, (r[i] ?? "").trim()])))
+    .filter(o => Object.values(o).some(Boolean) && String(o.show).toUpperCase() !== "FALSE")
+    .sort((a, b) => (Number(a.order) || 0) - (Number(b.order) || 0));
+}
+async function loadSheet() {
+  if (!SHEET_ID) return;
+  const get = n => tab(n).catch(err => { console.warn("[sheet]", err); return null; });
+  const [hd, nt, ...pf] = await Promise.all([P + "header", P + "notice", ...PORTFOLIO.map(c => c.tab)].map(get));
+  /* 헤더: key / value 형식. career는 여러 줄 가능 */
+  if (hd) {
+    const v = k => (hd.find(o => o.key === k) || {}).value;
+    if (v("title")) $("#h-title").textContent = v("title");
+    if (v("subtitle")) $("#h-sub").textContent = v("subtitle");
+    if (v("intro")) $("#h-intro").textContent = v("intro");
+    const cr = hd.filter(o => o.key === "career" && o.value).map(o => `<li>${esc(o.value)}</li>`);
+    if (cr.length) $("#h-cred").innerHTML = cr.join("");
+    if (v("image")) { $("#h-shot").dataset.src = v("image"); $("#h-img").src = src(v("image"), 620, true); }
+    if (v("caption")) { $("#h-cap").textContent = v("caption"); $("#h-shot").dataset.cap = v("caption"); $("#h-img").alt = v("caption"); }
+  }
+  if (nt) NOTICES = nt.map(o => o.text).filter(Boolean);
+  /* 포폴 탭: 카테고리마다 탭 하나 (포폴-오리지널, 포폴-원화기반 …) */
+  PORTFOLIO = PORTFOLIO.map((c, i) => pf[i] ? { ...c, imgs: pf[i].filter(o => o.img_url).map(o => ({ img: o.img_url, body: o.body })) } : c);
+  render();
+}
+render();
+loadSheet();
+}
+</script>
+</body>
+</html>
