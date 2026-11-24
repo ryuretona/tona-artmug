@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Osaka · Kyoto 12.1–12.3</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+/*
+VOICE   차분하고 정돈된 여행 도록. 장식 없이 일정이 말하게.
+IDEA    tona-artmug 페이지와 같은 흰 종이 위 일정표.
+PICTURE 관광지 대표 사진만 색을 가진다.
+COLOUR  흰 바탕, 먹색 글자, 얇은 회색 선.
+TYPE    큰 영문 제목은 Inter 200, 본문은 Noto Sans KR.
+*/
+:root{--bg:#fff;--ink:#1d1d20;--sub:#6b6b72;--line:#dcdcdf;--soft:#f5f5f6;--r:14px;--max:620px}
+*{box-sizing:border-box;min-width:0}
+html{scroll-behavior:smooth;scroll-padding-top:64px}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.7 "Noto Sans KR",system-ui,sans-serif;overflow-x:clip;-webkit-font-smoothing:antialiased}
+img{display:block;max-width:100%}
+a{color:inherit}
+.wrap{max-width:var(--max);margin:0 auto;padding:0 max(5vw,20px)}
+section{padding:56px 0;border-top:2px solid var(--ink)}
+header{padding:56px 0 40px}
+h2{font:300 15px/1.4 Inter,"Noto Sans KR",sans-serif;letter-spacing:.02em;color:var(--sub);margin:0 0 6px}
+h3{font-size:26px;font-weight:500;line-height:1.3;margin:0 0 10px;text-wrap:balance}
+p{margin:0}
+.brand{font:200 clamp(52px,15vw,96px)/.95 Inter,sans-serif;letter-spacing:-.03em;margin:0}
+.tag{font:300 17px Inter,sans-serif;color:var(--sub);margin:14px 0 28px}
+.cred{list-style:none;padding:0;margin:0 0 28px;color:var(--sub);font-size:15px}
+.cred li{padding:8px 0;border-top:1px solid var(--line);display:flex;gap:12px}
+.cred li:last-child{border-bottom:1px solid var(--line)}
+.cred b{font-weight:500;color:var(--ink);flex:none;width:4.2em}
+nav{position:sticky;top:0;z-index:5;background:rgba(255,255,255,.94);backdrop-filter:blur(6px);border-bottom:1px solid var(--line)}
+nav .wrap{display:flex;gap:8px;overflow-x:auto;padding-top:10px;padding-bottom:10px;scrollbar-width:none}
+nav a{flex:none;min-height:38px;display:inline-flex;align-items:center;padding:0 16px;border-radius:999px;border:1px solid var(--line);color:var(--sub);font-size:14px;text-decoration:none}
+nav a:hover{border-color:var(--ink);color:var(--ink)}
+.lead{color:var(--sub);font-size:15px}
+.tl{list-style:none;margin:28px 0 0;padding:0}
+.tl>li{display:grid;grid-template-columns:3.4em minmax(0,1fr);gap:0 14px;padding:18px 0;border-top:1px solid var(--line)}
+.tl>li:last-child{border-bottom:1px solid var(--line)}
+.t{font:300 15px/1.75 Inter,sans-serif;color:var(--sub);white-space:nowrap}
+.ev b{display:block;font-weight:500;font-size:17px;line-height:1.5}
+.ev .s{display:block;color:var(--sub);font-size:15px;margin-top:2px}
+.ev.key b{font-size:19px}
+.shot{margin-top:14px;border-radius:var(--r);overflow:hidden;background:var(--soft);aspect-ratio:4/3}
+.shot img{width:100%;height:100%;object-fit:cover}
+.cap{font-size:13px;color:var(--sub);margin-top:8px}
+.route{margin-top:12px;padding:14px 16px;background:var(--soft);border-radius:10px;font-size:14px;line-height:1.65}
+.route ol{margin:0;padding:0;list-style:none;counter-reset:n}
+.route li{display:flex;gap:10px;padding:3px 0}
+.route li::before{content:counter(n);counter-increment:n;font:300 13px/1.9 Inter,sans-serif;color:var(--sub);flex:none;width:1em}
+.route .x{font-weight:500}
+.card{margin-top:12px;padding:16px 18px;border:1px solid var(--line);border-radius:var(--r)}
+.card dl{margin:0;display:grid;grid-template-columns:4.6em minmax(0,1fr);gap:4px 10px;font-size:14px}
+.card dt{color:var(--sub)}
+.card dd{margin:0}
+.note{margin-top:10px;font-size:14px;color:var(--sub)}
+.warn{margin-top:10px;font-size:14px;color:#b3261e}
+.btns{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:40px;padding:0 18px;border-radius:999px;border:1px solid var(--ink);color:var(--ink);font:500 14px "Noto Sans KR",sans-serif;text-decoration:none}
+.btn.fill{background:var(--ink);color:#fff}
+.check{list-style:none;margin:24px 0 0;padding:0}
+.check li{padding:14px 0;border-bottom:1px solid var(--line);font-size:15px}
+.check label{display:flex;gap:12px;align-items:flex-start;cursor:pointer}
+.check input{width:20px;height:20px;margin:3px 0 0;flex:none;accent-color:var(--ink)}
+.check span small{display:block;color:var(--sub);font-size:13px}
+.check input:checked+span{color:var(--sub);text-decoration:line-through}
+footer{padding:40px 0 64px;border-top:1px solid var(--line);font-size:12px;color:var(--sub);line-height:1.6}
+footer p+p{margin-top:8px}
+.top{display:inline-block;margin-top:18px;font:300 14px Inter,sans-serif;color:var(--sub);text-decoration:none}
+</style>
+</head>
+<body>
+<header class="wrap" id="top">
+  <h1 class="brand">Osaka<br>Kyoto</h1>
+  <p class="tag">12.1 Tue — 12.3 Thu · 2박 3일</p>
+  <ul class="cred">
+    <li><b>가는 편</b>7C1355 · 김해 11:00 → 간사이 T2 12:30</li>
+    <li><b>오는 편</b>7C1356 · 간사이 T2 13:30 → 김해 14:55</li>
+    <li><b>숙소</b>Hotel IL Cuore Namba · 浪速区難波中1-15-15 (나니와구 난바나카)</li>
+    <li><b>규칙</b>공항엔 출발 1시간 30분 전 도착</li>
+  </ul>
+  <div class="btns">
+    <a class="btn fill" href="https://www.google.com/maps/search/?api=1&query=Hotel+IL+Cuore+Namba">숙소 지도</a>
+  </div>
+</header>
+
+<nav><div class="wrap">
+  <a href="#d1">12.1 도착</a><a href="#d2">12.2 교토</a><a href="#d3">12.3 귀국</a><a href="#todo">준비</a>
+</div></nav>
+
+<main>
+<!-- DAY 1 -->
+<section id="d1"><div class="wrap">
+  <h2>Day 1 · 12.1 Tue</h2>
+  <h3>도착, 수족관, 우설</h3>
+  <ol class="tl">
+    <li><span class="t">8:30</span><div class="ev"><b>집에서 출발</b><span class="s">김해공항까지 약 1시간 기준</span></div></li>
+    <li><span class="t">9:30</span><div class="ev"><b>김해공항 국제선</b><span class="s">제주항공 카운터 체크인 · 짐 부치기</span></div></li>
+    <li><span class="t">11:00</span><div class="ev key"><b>✈ 7C1355 출발</b><span class="s">간사이공항 제2터미널(T2) 12:30 도착</span></div></li>
+    <li><span class="t">12:30</span><div class="ev"><b>입국심사 → 난바로</b><span class="s">입국·짐 찾기 1시간 정도 잡기</span>
+      <div class="route"><ol>
+        <li><span>T2 국제선 1층 버스 승강장에서 <span class="x">무료 연결버스</span> 타기 (7~9분, 에어로플라자 앞 하차)</span></li>
+        <li><span>에어로플라자 2층 → <span class="x">南海 関西空港駅 (난카이 간사이공항역)</span> 개찰구</span></li>
+        <li><span><span class="x">南海 空港急行 「難波」(난카이 공항급행 「난바」)행</span> 타고 종점까지 약 45분 · 좌석 지정 특급 <span class="x">라피트</span>는 약 38분(추가요금)</span></li>
+        <li><span>南海 難波駅 (난카이 난바역)에서 숙소까지 걸어서 3~4분</span></li>
+      </ol></div>
+    </div></li>
+    <li><span class="t">14:50</span><div class="ev"><b>숙소 도착 · 짐 맡기기</b><span class="s">체크인은 15:00부터</span></div></li>
+    <li><span class="t">15:10</span><div class="ev key"><b>🍜 らーめん製作所 奏 (라멘 세이사쿠쇼 카나데)</b><span class="s">예전 이름 「麺 Life 拓 (멘 라이프 타쿠)」, 같은 자리에서 이름만 바뀜 · 타베로그 3.52</span>
+      <div class="card"><dl>
+        <dt>위치</dt><dd>浪速区稲荷1-7-30 (나니와구 이나리) · JR難波駅 (JR난바역) 남쪽 출구에서 걸어서 3분</dd>
+        <dt>가격</dt><dd>1,000~1,999엔</dd>
+        <dt>메뉴</dt><dd>인기 1위는 닭 육수 라멘, 간판은 3년 숙성 간장으로 만든 「奏でる醤油ラーメン (카나데루 간장 라멘)」</dd>
+      </dl>
+      <p class="warn">영업시간 미확인 · 오후 3시 이후 쉬는 시간일 수 있어요. 문 닫혀 있으면 「中華そば ふじい 難波千日前店 (주카소바 후지이 난바센니치마에점)」(난바역 2분)으로.</p>
+      <div class="btns"><a class="btn" href="https://www.google.com/maps/search/?api=1&query=%E3%82%89%E3%83%BC%E3%82%81%E3%82%93%E8%A3%BD%E4%BD%9C%E6%89%80%E5%A5%8F+%E6%B5%AA%E9%80%9F%E5%8C%BA%E7%A8%B2%E8%8D%B71-7-30">지도</a><a class="btn" href="https://www.google.com/maps/search/?api=1&query=%E4%B8%AD%E8%8F%AF%E3%81%9D%E3%81%B0+%E3%81%B5%E3%81%98%E3%81%84+%E9%9B%A3%E6%B3%A2%E5%8D%83%E6%97%A5%E5%89%8D%E5%BA%97">예비: ふじい (후지이)</a></div>
+      </div>
+    </div></li>
+    <li><span class="t">16:00</span><div class="ev"><b>가이유칸으로 이동</b><span class="s">약 30분</span>
+      <div class="route"><ol>
+        <li><span>地下鉄 (지하철) <span class="x">なんば駅 (난바역)</span> → <span class="x">御堂筋線 (미도스지선) 梅田・新大阪 (우메다·신오사카) 방면</span> 2정거장</span></li>
+        <li><span><span class="x">本町駅 (혼마치역)</span>에서 <span class="x">中央線 (주오선) コスモスクエア (코스모스퀘어) 방면</span>으로 환승</span></li>
+        <li><span>5정거장 → <span class="x">大阪港駅 (오사카코역)</span> 1번 출구, 걸어서 5분</span></li>
+      </ol></div>
+    </div></li>
+    <li><span class="t">16:30</span><div class="ev key"><b>🐋 가이유칸 수족관</b><span class="s">고래상어가 있는 대형 수조 · 10:00~20:00, 입장은 19:00까지</span>
+      <figure class="shot" style="margin-left:0;margin-right:0"><img loading="lazy" alt="가이유칸 고래상어 수조" src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7d/Two_whale-sharks_kayukan.JPG/960px-Two_whale-sharks_kayukan.JPG"></figure>
+      <p class="note">입장권은 웹 시간지정권으로 미리. 17시 이후엔 수족관 바깥 조명도 켜져요.</p>
+      <div class="btns"><a class="btn" href="https://www.google.com/maps/search/?api=1&query=%E6%B5%B7%E9%81%8A%E9%A4%A8">지도</a></div>
+    </div></li>
+    <li><span class="t">18:45</span><div class="ev"><b>난바로 복귀</b><span class="s">약 30분</span>
+      <div class="route"><ol>
+        <li><span><span class="x">大阪港駅 (오사카코역)</span> → <span class="x">中央線 (주오선) 本町・長田 (혼마치·나가타) 방면</span> 5정거장</span></li>
+        <li><span><span class="x">本町駅 (혼마치역)</span>에서 <span class="x">御堂筋線 (미도스지선) 天王寺・なかもず (덴노지·나카모즈) 방면</span>으로 환승</span></li>
+        <li><span>2정거장 → <span class="x">なんば駅 (난바역)</span></span></li>
+      </ol></div>
+    </div></li>
+    <li><span class="t">19:30</span><div class="ev key"><b>🥩 ライブ焼肉 てんぐ 千日前店 (라이브 야키니쿠 텐구 센니치마에점)</b><span class="s">주문하면 눈앞에서 고기를 썰어 줌 · 타베로그 3.55</span>
+      <div class="card"><dl>
+        <dt>위치</dt><dd>中央区千日前2-7-19 (주오구 센니치마에) · 近鉄日本橋駅 (긴테쓰닛폰바시역)에서 걸어서 3분</dd>
+        <dt>영업</dt><dd>월~토 17:00~새벽 5:00</dd>
+        <dt>가격</dt><dd>1인 4,000~4,999엔</dd>
+        <dt>전화</dt><dd>06-6646-0109</dd>
+      </dl>
+      <p class="note">시오탄(塩タン, 소금 우설) 꼭 시키기. 우설 비교 모둠도 있어요.</p>
+      <div class="btns"><a class="btn" href="https://www.google.com/maps/search/?api=1&query=%E3%83%A9%E3%82%A4%E3%83%96%E7%84%BC%E8%82%89+%E3%81%A6%E3%82%93%E3%81%90+%E5%8D%83%E6%97%A5%E5%89%8D%E5%BA%97">지도</a></div>
+      </div>
+      <figure class="shot" style="margin-left:0;margin-right:0"><img loading="lazy" alt="밤의 도톤보리" src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/47/Dotonbori%2C_Osaka%2C_at_night%2C_November_2016.jpg/960px-Dotonbori%2C_Osaka%2C_at_night%2C_November_2016.jpg"></figure>
+      <p class="cap">먹고 나서 도톤보리 글리코 간판 앞에서 사진 한 장</p>
+    </div></li>
+  </ol>
+</div></section>
+
+<!-- DAY 2 -->
+<section id="d2"><div class="wrap">
+  <h2>Day 2 · 12.2 Wed</h2>
+  <h3>아라시야마, 기온, 니넨자카 · 중간중간 카페</h3>
+  <ol class="tl">
+    <li><span class="t">9:00</span><div class="ev"><b>숙소 출발 → 아라시야마</b><span class="s">약 1시간 15분</span>
+      <div class="route"><ol>
+        <li><span>地下鉄 (지하철) <span class="x">なんば駅 (난바역)</span> → <span class="x">御堂筋線 (미도스지선) 梅田 (우메다) 방면</span> 4정거장 → <span class="x">梅田駅 (우메다역)</span></span></li>
+        <li><span>표지판 따라 <span class="x">阪急 大阪梅田駅 (한큐 오사카우메다역)</span>까지 걸어서 약 8분</span></li>
+        <li><span><span class="x">阪急京都線 (한큐 교토선) 京都河原町 (교토가와라마치) 방면 「特急」(특급)·「準特急」(준특급)</span> → <span class="x">桂駅 (가쓰라역)</span> 약 35분</span></li>
+        <li><span><span class="x">桂駅</span>에서 <span class="x">阪急嵐山線 (한큐 아라시야마선)</span>으로 환승 → 종점 <span class="x">嵐山駅 (아라시야마역)</span> 약 8분</span></li>
+      </ol></div>
+    </div></li>
+    <li><span class="t">10:15</span><div class="ev key"><b>🌉 도게쓰교 다리</b><span class="s">역에서 나와 강 쪽으로 · 다리를 건너며 산과 강 배경으로 사진</span>
+      <figure class="shot" style="margin-left:0;margin-right:0"><img loading="lazy" alt="아라시야마 도게쓰교" src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/20/Arashiyama_Togetsukyo-bridge.jpg/960px-Arashiyama_Togetsukyo-bridge.jpg"></figure>
+      <div class="btns"><a class="btn" href="https://www.google.com/maps/search/?api=1&query=%E6%B8%A1%E6%9C%88%E6%A9%8B">지도</a></div>
+    </div></li>
+    <li><span class="t">10:40</span><div class="ev key"><b>☕ 嵐山 りらっくま茶房 (아라시야마 리락쿠마 사보)</b><span class="s">도게쓰교 건너 북쪽, 걸어서 약 5~10분 · 리락쿠마 모양 디저트와 꿀 음료, 1층은 굿즈 숍</span>
+      <div class="card"><dl>
+        <dt>위치</dt><dd>右京区嵯峨天龍寺北造路町15 (우쿄구 사가텐류지)</dd>
+        <dt>영업</dt><dd>레스토랑 10:30~17:30 (카페 마지막 주문 17:00) · 굿즈 숍 10:00~18:00</dd>
+        <dt>전화</dt><dd>075-863-2660</dd>
+      </dl>
+      <p class="note">점심은 기온에서 먹으니 여기선 디저트·음료 위주로. 12/6부터는 겨울 영업시간이라 조금 일찍 닫아요.</p>
+      <div class="btns"><a class="btn" href="https://www.google.com/maps/search/?api=1&query=%E5%B5%90%E5%B1%B1%20%E3%82%8A%E3%82%89%E3%81%A3%E3%81%8F%E3%81%BE%E8%8C%B6%E6%88%BF">지도</a></div>
+      </div>
+    </div></li>
+    <li><span class="t">11:45</span><div class="ev"><b>대나무숲 (竹林の小径, 치쿠린노 코미치)</b><span class="s">카페에서 가까워요 · 짧게 걷고 사진만</span>
+      <div class="btns"><a class="btn" href="https://www.google.com/maps/search/?api=1&query=%E7%AB%B9%E6%9E%97%E3%81%AE%E5%B0%8F%E5%BE%84%20%E5%B5%90%E5%B1%B1">지도</a></div>
+    </div></li>
+    <li><span class="t">12:30</span><div class="ev"><b>기온으로 이동</b><span class="s">약 40분</span>
+      <div class="route"><ol>
+        <li><span><span class="x">阪急 嵐山駅 (한큐 아라시야마역)</span> → <span class="x">嵐山線 (아라시야마선)</span> → <span class="x">桂駅 (가쓰라역)</span></span></li>
+        <li><span><span class="x">阪急京都線 京都河原町 (교토가와라마치) 방면</span>으로 환승 → 종점 <span class="x">京都河原町駅 (교토가와라마치역)</span></span></li>
+        <li><span>시조도리 따라 동쪽으로, 가모강 건너 하나미코지까지 걸어서 약 7분</span></li>
+      </ol></div>
+    </div></li>
+    <li><span class="t">13:30</span><div class="ev key"><b>🍚 侘家古暦堂 祇園花見小路本店 (와비야 코레키도 기온 하나미코지 본점)</b><span class="s">점심은 石焼親子丼 (돌솥 오야코동) 하나뿐 · 달걀 3개, 마지막은 닭육수 오차즈케로</span>
+      <div class="card"><dl>
+        <dt>위치</dt><dd>東山区祇園町南側 歌舞練場北側 (히가시야마구 기온마치 미나미가와, 가부렌조 북쪽)</dd>
+        <dt>점심</dt><dd>11:30 / 12:30 / 13:30 3부제 · 일요일 휴무</dd>
+        <dt>가격</dt><dd>石焼親子丼 (돌솥 오야코동) 1,650엔</dd>
+        <dt>전화</dt><dd>075-532-3355</dd>
+      </dl>
+      <p class="warn">예약 손님이 많아요. 13:30 타임을 OMAKASE 앱으로 잡아 두면 안전하고, 그냥 가 봤는데 자리가 없으면 근처에서 다른 곳으로.</p>
+      <div class="btns"><a class="btn" href="https://www.google.com/maps/search/?api=1&query=%E4%BE%98%E5%AE%B6%E5%8F%A4%E6%9A%A6%E5%A0%82%20%E7%A5%87%E5%9C%92%E8%8A%B1%E8%A6%8B%E5%B0%8F%E8%B7%AF%E6%9C%AC%E5%BA%97">지도</a></div>
+      </div>
+    </div></li>
+    <li><span class="t">14:30</span><div class="ev key"><b>기온 하나미코지</b><span class="s">식당 바로 앞 돌길 · 산책하며 사진</span>
+      <figure class="shot" style="margin-left:0;margin-right:0"><img loading="lazy" alt="기온 하나미코지 거리" src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/bb/Hanamikoji_Street%2C_Kyoto_on_June_18th%2C_2016.jpg/960px-Hanamikoji_Street%2C_Kyoto_on_June_18th%2C_2016.jpg"></figure>
+    </div></li>
+    <li><span class="t">15:00</span><div class="ev key"><b>니넨자카 · 산넨자카</b><span class="s">하나미코지 남쪽 끝에서 야사카 탑 쪽으로 걸어서 약 15분 · 언덕길과 탑이 한 컷에</span>
+      <figure class="shot" style="margin-left:0;margin-right:0"><img loading="lazy" alt="교토 니넨자카" src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c9/Gion_-_Nineizaka_%28Ninenzaka%29%2C_Kyoto%2C_Japan_%2848923866801%29.jpg/960px-Gion_-_Nineizaka_%28Ninenzaka%29%2C_Kyoto%2C_Japan_%2848923866801%29.jpg"></figure>
+      <div class="btns"><a class="btn" href="https://www.google.com/maps/search/?api=1&query=%E4%BA%8C%E5%B9%B4%E5%9D%82">지도</a><a class="btn" href="https://www.google.com/maps/search/?api=1&query=%E5%85%AB%E5%9D%82%E3%81%AE%E5%A1%94">야사카 탑</a></div>
+    </div></li>
+    <li><span class="t">15:45</span><div class="ev key"><b>☕ 스타벅스 니넨자카 야사카 차야점</b><span class="s">오래된 일본 전통 가옥을 그대로 쓴 스타벅스 · 니넨자카 길가에 있어서 쉬어 가기 좋아요</span>
+      <figure class="shot" style="margin-left:0;margin-right:0"><img loading="lazy" alt="스타벅스 니넨자카 야사카 차야점" src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/Starbucks_Coffee_Kyoto_Ninenzaka_Yasaka_Chaya.jpg/960px-Starbucks_Coffee_Kyoto_Ninenzaka_Yasaka_Chaya.jpg"></figure>
+      <p class="note">인기가 많아 자리가 없을 수 있어요. 그럼 테이크아웃해서 걸으며.</p>
+      <div class="btns"><a class="btn" href="https://www.google.com/maps/search/?api=1&query=%E3%82%B9%E3%82%BF%E3%83%BC%E3%83%90%E3%83%83%E3%82%AF%E3%82%B9%20%E4%BA%AC%E9%83%BD%E4%BA%8C%E5%AF%A7%E5%9D%82%E3%83%A4%E3%82%B5%E3%82%AB%E8%8C%B6%E5%B1%8B%E5%BA%97">지도</a></div>
+    </div></li>
+    <li><span class="t">16:45</span><div class="ev"><b>오사카로 복귀</b><span class="s">니넨자카에서 祇園四条駅 (기온시조역)까지 걸어서 약 15분 · 전철 약 1시간</span>
+      <div class="route"><ol>
+        <li><span><span class="x">京阪 祇園四条駅 (게이한 기온시조역)</span> → <span class="x">淀屋橋 (요도야바시) 방면 「特急」(특급)</span> 종점까지 약 50분</span></li>
+        <li><span><span class="x">淀屋橋駅 (요도야바시역)</span>에서 <span class="x">御堂筋線 (미도스지선) 天王寺・なかもず (덴노지·나카모즈) 방면</span>으로 환승</span></li>
+        <li><span>3정거장 → <span class="x">なんば駅 (난바역)</span></span></li>
+      </ol></div>
+    </div></li>
+    <li><span class="t">18:00</span><div class="ev"><b>숙소에서 쉬기</b><span class="s">씻고 잠깐 눕기</span></div></li>
+    <li><span class="t">19:00</span><div class="ev key"><b>🍣 ときすし 本店 (토키스시 본점)</b><span class="s">숙성초밥이 아닌 생선 초밥 · 이즈미사노 항구 직송 · 타베로그 3.45</span>
+      <div class="card"><dl>
+        <dt>위치</dt><dd>中央区難波千日前4-21 (주오구 난바센니치마에) · なんばグランド花月 (난바 그랜드 가게쓰 극장) 뒤편</dd>
+        <dt>영업</dt><dd>11:00~22:00</dd>
+        <dt>가격</dt><dd>저녁 1인 2,000~2,999엔</dd>
+        <dt>전화</dt><dd>06-6632-0366</dd>
+      </dl>
+      <p class="note">줄 서는 집. 야식이 있으니 한 접시씩 가볍게.</p>
+      <div class="btns"><a class="btn" href="https://www.google.com/maps/search/?api=1&query=%E3%81%A8%E3%81%8D%E3%81%99%E3%81%97%20%E6%9C%AC%E5%BA%97%20%E9%9B%A3%E6%B3%A2%E5%8D%83%E6%97%A5%E5%89%8D">지도</a></div>
+      </div>
+    </div></li>
+    <li><span class="t">20:15</span><div class="ev"><b>숙소에서 쉬기</b></div></li>
+    <li><span class="t">22:00</span><div class="ev key"><b>🍢 炭火焼とり えんや 難波3号店 (스미비야키토리 엔야 난바 3호점)</b><span class="s">야식 야키토리 · 타베로그 3.52</span>
+      <div class="card"><dl>
+        <dt>위치</dt><dd>近鉄日本橋駅 (긴테쓰닛폰바시역) 5번 출구에서 걸어서 4분 · NGK 동쪽 골목</dd>
+        <dt>영업</dt><dd>17:00~24:30 · 음식 마지막 주문 23:30</dd>
+        <dt>가격</dt><dd>1인 3,000~3,999엔</dd>
+        <dt>전화</dt><dd>06-6633-8055</dd>
+      </dl>
+      <p class="note">자주 꽉 차요. 자리 없으면 근처 다른 야키토리집으로.</p>
+      <div class="btns"><a class="btn" href="https://www.google.com/maps/search/?api=1&query=%E7%82%AD%E7%81%AB%E7%84%BC%E3%81%A8%E3%82%8A%20%E3%81%88%E3%82%93%E3%82%84%20%E9%9B%A3%E6%B3%A23%E5%8F%B7%E5%BA%97">지도</a></div>
+      </div>
+    </div></li>
+  </ol>
+</div></section>
+
+<!-- DAY 3 -->
+<section id="d3"><div class="wrap">
+  <h2>Day 3 · 12.3 Thu</h2>
+  <h3>가볍게 먹고 귀국</h3>
+  <ol class="tl">
+    <li><span class="t">9:00</span><div class="ev"><b>☕ 가벼운 아침</b><span class="s">호텔 조식 뷔페(1인 1,500엔) 또는 근처 카페 · 벨로체 1분, 스타벅스 2분</span></div></li>
+    <li><span class="t">9:45</span><div class="ev"><b>체크아웃</b><span class="s">체크아웃은 11:00까지 가능</span></div></li>
+    <li><span class="t">10:00</span><div class="ev"><b>공항으로</b><span class="s">T2 도착 11:30쯤</span>
+      <div class="route"><ol>
+        <li><span>숙소 → <span class="x">南海 難波駅 (난카이 난바역)</span> 걸어서 3~4분</span></li>
+        <li><span><span class="x">南海 空港急行 「関西空港」(난카이 공항급행 「간사이공항」)행</span> 약 45분 · 라피트는 약 38분</span></li>
+        <li><span><span class="x">関西空港駅 (간사이공항역)</span> 개찰구 → 에어로플라자 → 에스컬레이터로 <span class="x">1층</span></span></li>
+        <li><span><span class="x">제2터미널행 무료 연결버스</span> 7~9분 → T2 국제선</span></li>
+      </ol></div>
+    </div></li>
+    <li><span class="t">11:30</span><div class="ev"><b>간사이 T2 도착</b><span class="s">제주항공 체크인 · 출국심사 · T2 국제선은 바깥쪽 상점이 거의 없으니 들어가서 쉬기</span></div></li>
+    <li><span class="t">13:30</span><div class="ev key"><b>✈ 7C1356 출발</b><span class="s">김해 14:55 도착</span></div></li>
+    <li><span class="t">16:30</span><div class="ev"><b>집 도착</b><span class="s">공항에서 약 1시간 기준</span></div></li>
+  </ol>
+</div></section>
+
+<!-- TODO -->
+<section id="todo"><div class="wrap">
+  <h2>Before you go</h2>
+  <h3>미리 해 둘 것</h3>
+  <p class="lead">체크하면 이 화면에서 줄이 그어져요.</p>
+  <ul class="check">
+    <li><label><input type="checkbox" id="c1"><span>가이유칸 웹 시간지정권 사기<small>12/1 16:30 전후 입장</small></span></label></li>
+    <li><label><input type="checkbox" id="c2"><span>텐구 예약 · 12/1 19:30<small>06-6646-0109</small></span></label></li>
+    <li><label><input type="checkbox" id="c3"><span>侘家古暦堂 (와비야 코레키도) 점심 · 12/2 13:30<small>예약은 선택 · OMAKASE 앱 또는 075-532-3355</small></span></label></li>
+    <li><label><input type="checkbox" id="c4"><span>えんや (엔야) 예약 · 12/2 22:00<small>06-6633-8055</small></span></label></li>
+    <li><label><input type="checkbox" id="c5"><span>らーめん製作所 奏 (카나데) 영업시간 확인<small>15시 이후에 열려 있는지</small></span></label></li>
+    <li><label><input type="checkbox" id="c6"><span>ICOCA 같은 교통카드 준비<small>지하철·난카이·게이한 모두 사용 가능</small></span></label></li>
+  </ul>
+  <a class="top" href="#top">↑ 맨 위로</a>
+</div></section>
+</main>
+
+<footer><div class="wrap">
+  <p>사진: Wikimedia Commons (각 촬영자, CC 라이선스) — Glaoadare, Choi2451, Domenico Convertini 외. 인터넷에 연결돼 있어야 사진이 보여요.</p>
+  <p>가게 정보는 2026년 11월 기준 타베로그·구루나비 등에서 확인했어요. 영업시간은 바뀔 수 있어요.</p>
+</div></footer>
+
+<script>
+{
+  const boxes = document.querySelectorAll('.check input');
+  let saved = {};
+  try { saved = JSON.parse(localStorage.getItem('trip-check') || '{}'); } catch (e) {}
+  boxes.forEach(b => {
+    if (saved[b.id]) b.checked = true;
+    b.addEventListener('change', () => {
+      saved[b.id] = b.checked;
+      try { localStorage.setItem('trip-check', JSON.stringify(saved)); } catch (e) {}
+    });
+  });
+  document.querySelectorAll('.shot img').forEach(img => {
+    const m = img.src.match(/\/thumb\/[0-9a-f]\/[0-9a-f]{2}\/([^/]+)\//);
+    const name = m ? m[1] : '';
+    const tries = name ? [
+      'https://commons.wikimedia.org/wiki/Special:FilePath/' + name + '?width=960',
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/' + img.src.split('/thumb/')[1].split('/').slice(0,3).join('/') + '/1280px-' + name,
+      'https://commons.wikimedia.org/wiki/Special:FilePath/' + name
+    ] : [];
+    img.addEventListener('error', () => {
+      const next = tries.shift();
+      if (next) { img.src = next; return; }
+      const b = img.closest('.shot');
+      b.innerHTML = '<div style="height:100%;display:flex;align-items:center;justify-content:center;color:#6b6b72;font-size:14px">사진을 불러오지 못했어요</div>';
+    });
+  });
+}
+</script>
+</body>
+</html>
