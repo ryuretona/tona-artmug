@@ -276,13 +276,13 @@ footer p+p{margin-top:8px}
   <h3>미리 해 둘 것</h3>
   <p class="lead">체크하면 이 화면에서 줄이 그어져요.</p>
   <ul class="check">
-    <li><label><input type="checkbox" id="c1"><span>가이유칸 웹 시간지정권 사기<small>12/1 16:30 전후 입장</small></span></label></li>
-    <li><label><input type="checkbox" id="c2"><span>텐구 예약 · 12/1 19:30<small>06-6646-0109</small></span></label></li>
-    <li><label><input type="checkbox" id="c3"><span>侘家古暦堂 (와비야 코레키도) 점심 · 12/2 13:30<small>예약은 선택 · OMAKASE 앱 또는 075-532-3355</small></span></label></li>
-    <li><label><input type="checkbox" id="c4"><span>えんや (엔야) 예약 · 12/2 22:00<small>06-6633-8055</small></span></label></li>
-    <li><label><input type="checkbox" id="c5"><span>らーめん製作所 奏 (카나데) 영업시간 확인<small>15시 이후에 열려 있는지</small></span></label></li>
-    <li><label><input type="checkbox" id="c6"><span>ICOCA 같은 교통카드 준비<small>지하철·난카이·게이한 모두 사용 가능</small></span></label></li>
+    <li><label><input type="checkbox" id="c2"><span>텐구 좌석 예약 · 12/1 19:30 (추천)<small>구루나비에서 무료로 바로 예약 · 06-6646-0109 · 안 하면 조금 일찍 도착하기</small></span></label></li>
+    <li><label><input type="checkbox" id="c5"><span>らーめん製作所 奏 (카나데) 영업시간 확인<small>12/1 15시 이후에 열려 있는지</small></span></label></li>
+    <li><label><input type="checkbox" id="c6"><span>ICOCA 같은 교통카드 준비<small>지하철·난카이·한큐·게이한 모두 사용 가능</small></span></label></li>
+    <li><label><input type="checkbox" id="c1" checked><span>가이유칸 웹 시간지정권<small>완료</small></span></label></li>
+    <li><label><input type="checkbox" id="c3" checked><span>와비야 코레키도 점심 · 12/2 13:30<small>예약 완료 · 예약 확인 화면 챙기기</small></span></label></li>
   </ul>
+  <p class="note">えんや (엔야)는 예약 없이 가요. 자리가 없으면 근처 다른 야키토리집으로.</p>
   <a class="top" href="#top">↑ 맨 위로</a>
 </div></section>
 </main>
@@ -298,7 +298,7 @@ footer p+p{margin-top:8px}
   let saved = {};
   try { saved = JSON.parse(localStorage.getItem('trip-check') || '{}'); } catch (e) {}
   boxes.forEach(b => {
-    if (saved[b.id]) b.checked = true;
+    if (saved[b.id]) b.checked = true; if (b.defaultChecked) b.checked = true;
     b.addEventListener('change', () => {
       saved[b.id] = b.checked;
       try { localStorage.setItem('trip-check', JSON.stringify(saved)); } catch (e) {}
